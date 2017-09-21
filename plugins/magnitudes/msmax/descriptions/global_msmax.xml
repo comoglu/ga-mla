@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<seiscomp>
+	<plugin name="MSmax">
+		<extends>global</extends>
+		<description>
+		The MSmax plugin is the GA one.
+		</description>
+                                    <configuration>
+                                        <group name="MSmax">
+                                            <description>
+                                                Configuration parameters for the MSmax
+                                            </description>
+                                        </group>
+		</configuration>
+	</plugin>
+</seiscomp>
