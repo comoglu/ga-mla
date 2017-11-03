@@ -1,4 +1,4 @@
-/* 
+/*
  * File:   msmax.h
  * Author: Geoscience Australia
  */
@@ -6,30 +6,30 @@
 #ifndef __MSMAX_PLUGIN_H__
 #define __MSMAX_PLUGIN_H__
 
-#define AMP_TYPE "MSmax"
-#define MAG_TYPE "MSmax"
+#define GA_MSVMAX_AUS_AMP_TYPE "MSmax"
+#define GA_MSVMAX_AUS_MAG_TYPE "MSmax"
 
 #include <seiscomp3/processing/amplitudeprocessor.h>
 #include <seiscomp3/processing/magnitudeprocessor.h>
 
 /*
  Calculates the MSmax amplitude. The magnitude calculations are performed in
- this class. 
+ this class.
  */
 class Amplitude_MSmax : public Seiscomp::Processing::AmplitudeProcessor
 {
 public:
-        
+
     /*#########################################################################
                                                 PUBLIC METHODS
     #########################################################################*/
-    
+
     // Constructor. Returns a new Magnitude_MSvmax object.
     Amplitude_MSmax();
-    
+
     // Destructor
     virtual ~Amplitude_MSmax();
-    
+
     /*
     Hints that are sent throughout the Seiscomp system. This method is used to
     get the distance to the epicentre.
@@ -39,7 +39,7 @@ public:
     virtual void setHint(
         Seiscomp::Processing::WaveformProcessor::ProcessingHint hint,
         double value);
-    
+
     /*
     Computes the amplitude of data in the range[i1, i2].
     Input:
@@ -69,13 +69,13 @@ public:
                                   AmplitudeIndex *dt,
                                   AmplitudeValue *amplitude,
                                   double *period, double *snr);
-    
+
 protected:
-    
+
     /*#########################################################################
                                        PROTECTED MEMBER VARIABLES
     #########################################################################*/
-    
+
     /*
     Whether or not distance to epicentre has been calculated. The
     AmplitudeProcessor is not always successful in being able to calculate
@@ -83,21 +83,21 @@ protected:
     determine whether the processor  has or has not calculated it.
     */
     bool        hasDistance;
-    
+
     /*
      The delta distance, in degrees, of the event origin
     */
     bool        eventDistance;
-    
+
     /*
     The amount to step by when checking for a new value.
     */
     int         periodStep;
-    
+
     /*#########################################################################
                                             PROTECTED METHODS
     #########################################################################*/
-    
+
     /*
     Returns the amplitude value that is used the calculate the  max magnitude
     (as per the calculation). This is done by performing the magnitude
@@ -136,28 +136,25 @@ Calculates the MSmax magnitude.
 class Magnitude_MSmax : public Seiscomp::Processing::MagnitudeProcessor
 {
     public:
-        
+
         /*#####################################################################
                                              PUBLIC METHODS
         #####################################################################*/
-        
+
         // Constructor. Returns a new Magnitude_MSvmax object.
         Magnitude_MSmax();
-        
-        // Destructor
-        virtual ~Magnitude_MSmax();
-        
+
         // Configures the plugin to get all the relevant information it
         // requires to perform the calculations.
         bool setup(const Seiscomp::Processing::Settings &settings);
-        
+
         // Sets the amplitude type that is being used in the calculation.
         // This method is used to specify what amplitude from scamp is used
         // as the amplitude value passed into the computeMagnitude method for
         // this magnitude processor. To set the amplitude type you want, return
         // the name of the amplitude type from scamp that you want to use.
         std::string amplitudeType() const;
-        
+
         // Calculates the MSvmax magnitude with the given parameters.
         // @param amplitude: Amplitude of the seismic event (in millimetres).
         // @param period: (in seconds).
@@ -170,19 +167,19 @@ class Magnitude_MSmax : public Seiscomp::Processing::MagnitudeProcessor
 		      double delta,       // in degrees
 		      double depth,       // in kilometres
 		      double &value);
-       
+
     protected:
-        
+
         /*#####################################################################
                                              PROTECTED METHODS
         #####################################################################*/
-        
+
         // Calculates the corner filter frequency value for the magnitude calculation.
         // @param period: (in seconds).
         // @param delta: (in degrees).
         // @returns: corner filter frequency.
         double cornerFrequency(double period, double delta);
-        
+
         // Calculates the high and low corner frequencies for the Butterworth
         // bandpass filter that will be applied to the surface wave amplitude.
         // @param cornerFreq: The corner filter frequency value.
@@ -193,7 +190,7 @@ class Magnitude_MSmax : public Seiscomp::Processing::MagnitudeProcessor
             double cornerFreq,
             double period,
             double &high,
-            double &low);        
+            double &low);
 };
 
 #endif /* __MSMAX_PLUGIN_H__ */
