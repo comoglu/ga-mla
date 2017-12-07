@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<seiscomp>
+    <plugin name="mla">
+        <extends>global</extends>
+        <description>
+            The mla plugin is the GA one.
+        </description>
+    </plugin>
+    <binding name="mla" module="global">
+        <description>
+            The ml calculation used by GA for Australian regions.
+        </description>
+        <configuration>
+            <group name="mla">
+                <parameter name="regionfilepath" type="string">
+                    <description>
+                        /opt/seiscomp3/share/bna/ga_regions/magnitude_zones_australia.bna
+                    </description>
+                </parameter>
+            </group>
+        </configuration>
+    </binding>
+</seiscomp>
