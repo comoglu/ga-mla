@@ -1,6 +1,6 @@
 # Geoscience Australia SeisComP3 Modules/Plugins
 
-Various plugins developed for [SeisComP3](https://www.seiscomp3.org/) by 
+Various plugins developed for [SeisComP3](https://www.seiscomp3.org/) by
 Geoscience Australia.
 
 
@@ -34,11 +34,11 @@ Geoscience Australia.
         libmysqlclient-dev \
         libpython-dev \
         python-m2crypto \
-        libqt4-dev 
+        libqt4-dev
     ```
 
-  If you want to use ccmake (as per the 
-  [compilation instructions](https://github.com/SeisComP3/seiscomp3/blob/master/README.md#compiling),
+  If you want to use ccmake (as per the
+  [compilation instructions](https://github.com/SeisComP3/seiscomp3/blob/master/README.md#compiling)),
   then you also want
 
     ```
@@ -55,10 +55,10 @@ Geoscience Australia.
     git clone https://github.com/SeisComP3/seiscomp3.git
     ```
 
-  Note that you will need a version which contains commit 
+  Note that you will need a version which contains commit
   [d2b631715a4b](https://github.com/SeisComP3/seiscomp3/commit/d2b631715a4b68e8291801bef8cb1b1e808a30ee),
   which introduces a change which the MLa magnitude plugin depends on.
-  
+
 
 - Go to the src directory and clone this repository into the directoy 'ga'
 
@@ -88,7 +88,7 @@ Geoscience Australia.
   If you only want to build the GA plugins and their dependencies
 
     ```
-    cd 
+    cd
     cd seiscomp3/src/ga
     make
     ```
