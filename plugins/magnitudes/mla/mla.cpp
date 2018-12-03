@@ -3,7 +3,11 @@
 #include "mla.h"
 
 #include <seiscomp3/logging/log.h>
+#if SC_API_VERSION < SC_API_VERSION_CHECK(12,0,0)
 #include <seiscomp3/geo/geofeature.h>
+#else
+#include <seiscomp3/geo/feature.h>
+#endif
 #include <seiscomp3/math/geo.h>
 
 #include <vector>
@@ -15,7 +19,7 @@ ADD_SC_PLUGIN(
         ( "MLa magnitude. Calculates magnitude based on universal formulae "
         "MLa=c0_log10(Amp)+c1*log10(delta*c3+c4)+c5*(delta+c6), "
         "where coefficients c1...6 vary based on epicentral location."),
-        "Geoscience Australia", 0, 0, 1);
+        "Geoscience Australia", 0, 0, 2);
 
 // Register the amplitude processor.
 IMPLEMENT_SC_CLASS_DERIVED(Amplitude_MLA, AmplitudeProcessor, "AmplitudeProcessor_MLA");
@@ -157,12 +161,21 @@ std::string Magnitude_MLA::amplitudeType() const
 }
 
 Seiscomp::Processing::MagnitudeProcessor::Status Magnitude_MLA::computeMagnitude(
-      double amplitude,   // in millimetres
-      double period,      // in seconds
-      double delta,       // in degrees
-      double depth,       // in kilometres
+      double amplitudeValue, // in millimetres
+#if SC_API_VERSION >= SC_API_VERSION_CHECK(12,0,0)
+      const std::string &unit,
+#endif
+      double period,         // in seconds
+#if SC_API_VERSION >= SC_API_VERSION_CHECK(12,0,0)
+      double snr,
+#endif
+      double delta,          // in degrees
+      double depth,          // in kilometres
       const Seiscomp::DataModel::Origin *hypocenter,
       const Seiscomp::DataModel::SensorLocation *receiver,
+#if SC_API_VERSION >= SC_API_VERSION_CHECK(12,0,0)
+      const Seiscomp::DataModel::Amplitude *amplitude,
+#endif
       double &value)
 {
     // The calculation used will depend on which of these regions the origin
@@ -176,7 +189,7 @@ Seiscomp::Processing::MagnitudeProcessor::Status Magnitude_MLA::computeMagnitude
         if (regions[i]->contains(originLoc))
         {
             MagCalc calcFunction = m_regionToCalcMap[regions[i]->name()];
-            return (this->*calcFunction)(amplitude, period, delta, depth, value);
+            return (this->*calcFunction)(amplitudeValue, period, delta, depth, value);
         }
     }
 

@@ -11,7 +11,11 @@
 #include <seiscomp3/processing/amplitudes/MLv.h>
 #include <seiscomp3/processing/magnitudeprocessor.h>
 #include <seiscomp3/core/plugin.h>
+#if SC_API_VERSION < SC_API_VERSION_CHECK(12,0,0)
 #include <seiscomp3/geo/geofeatureset.h>
+#else
+#include <seiscomp3/geo/featureset.h>
+#endif
 
 #include <string>
 #include <map>
@@ -146,13 +150,22 @@ class Magnitude_MLA : public Seiscomp::Processing::MagnitudeProcessor
         // @param receiver The sensor location meta-data of the receiver.
         // @param value: The result of the calculation.
         Seiscomp::Processing::MagnitudeProcessor::Status computeMagnitude(
-		      double amplitude,   // in millimetres
-		      double period,      // in seconds
-		      double delta,       // in degrees
-		      double depth,       // in kilometres
-                                          const Seiscomp::DataModel::Origin *hypocenter,
-                                          const Seiscomp::DataModel::SensorLocation *receiver,
-		      double &value);
+              double amplitudeValue,   // in millimetres
+#if SC_API_VERSION >= SC_API_VERSION_CHECK(12,0,0)
+              const std::string &unit,
+#endif
+              double period,      // in seconds
+#if SC_API_VERSION >= SC_API_VERSION_CHECK(12,0,0)
+              double snr,
+#endif
+              double delta,       // in degrees
+              double depth,       // in kilometres
+              const Seiscomp::DataModel::Origin *hypocenter,
+              const Seiscomp::DataModel::SensorLocation *receiver,
+#if SC_API_VERSION >= SC_API_VERSION_CHECK(12,0,0)
+              const Seiscomp::DataModel::Amplitude *amplitude,
+#endif
+              double &value);
 
         /*#####################################################################
                                             STATIC METHODS
