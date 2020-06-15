@@ -15,11 +15,13 @@ Geoscience Australia.
   to change the apt-get calls. The Redhat/CentOS package equivalents for many
   of the packages are stated [here](https://github.com/SeisComP3/seiscomp3#dependencies).
 
+- you want to build for python 3.
+
 
 ### Process
 
 - Get the prerequisites (this includes the dependencies mentioned in
-  [the SeisComP3 README](https://github.com/SeisComP3/seiscomp3/blob/master/README.md))
+  [the SeisComP3 README](https://github.com/SeisComP/seiscomp/blob/master/README.md))
 
     ```
     sudo apt-get install -y \
@@ -32,13 +34,13 @@ Geoscience Australia.
         libssl-dev \
         libncurses-dev \
         libmysqlclient-dev \
-        libpython-dev \
-        python-m2crypto \
-        libqt4-dev
+        python3-dev \
+        python3-numpy \
+        qtbase5-dev
     ```
 
   If you want to use ccmake (as per the
-  [compilation instructions](https://github.com/SeisComP3/seiscomp3/blob/master/README.md#compiling)),
+  [compilation instructions](https://github.com/SeisComP/seiscomp/blob/master/README.md#compiling)),
   then you also want
 
     ```
@@ -47,38 +49,26 @@ Geoscience Australia.
 
   I don't do this and use cmake directly as per my example below.
 
-
-- Get the SeisComP3 source code
-
+- Ensure python3 is set as your default system python, e.g. 
     ```
-    cd
-    git clone https://github.com/SeisComP3/seiscomp3.git
+    sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.6m 3
+    sudo update-alternatives --config python
     ```
 
-  Note that you will need a version which contains commit
-  [d2b631715a4b](https://github.com/SeisComP3/seiscomp3/commit/d2b631715a4b68e8291801bef8cb1b1e808a30ee),
-  which introduces a change which the MLa magnitude plugin depends on.
+- Get the SeisComP source code by following the instructions in the seiscomp readme.
 
+  If you only want to build the GA plugins, you should just need the `seiscomp` and
+  `common` repositories.
 
-- Go to the src directory and clone this repository into the directoy 'ga'
-
-    ```
-    cd
-    cd seiscomp3/src
-    git clone https://github.com/GeoscienceAustralia/seiscomp3.git ga
-    # or if you are are going to commit back use:
-    # git clone git@github.com:GeoscienceAustralia/seiscomp3.git ga
-    ```
+- Go to the src directory and clone this repository into the directory 'ga'.
 
 
 - Return to the top level directory and follow the build instructions in the
-  [README](https://github.com/SeisComP3/seiscomp3/blob/master/README.md) of the
-  the [SeisComP3](https://github.com/SeisComP3/seiscomp3.git) repository. In
+  [README](https://github.com/SeisComP/seiscomp/blob/master/README.md) of the
+  the [SeisComP3](https://github.com/SeisComP/seiscomp.git) repository. In
   brief, I do this with
 
     ```
-    cd
-    cd seiscomp3
     mkdir build
     cd build
     cmake -G "Unix Makefiles" ..
@@ -88,8 +78,7 @@ Geoscience Australia.
   If you only want to build the GA plugins and their dependencies
 
     ```
-    cd
-    cd seiscomp3/src/ga
+    cd src/ga
     make
     ```
 
@@ -101,4 +90,4 @@ Geoscience Australia.
 
 
 - For development, you probably want to run `make install` from the top level
-  directory to give you a working SeisComP3 system.
+  directory to give you a working SeisComP system.
