@@ -14,7 +14,7 @@
             <group name="mla">
                 <parameter name="regionfilepath" type="string">
                     <description>
-                        /opt/seiscomp3/share/bna/ga_regions/magnitude_zones_australia.bna
+                        /opt/seiscomp/share/bna/ga_regions/magnitude_zones_australia.bna
                     </description>
                 </parameter>
             </group>

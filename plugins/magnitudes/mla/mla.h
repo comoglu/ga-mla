@@ -8,13 +8,13 @@
 #define GA_ML_AUS_AMP_TYPE "MLa"
 #define GA_ML_AUS_MAG_TYPE "MLa"
 
-#include <seiscomp3/processing/amplitudes/MLv.h>
-#include <seiscomp3/processing/magnitudeprocessor.h>
-#include <seiscomp3/core/plugin.h>
+#include <seiscomp/processing/amplitudes/MLv.h>
+#include <seiscomp/processing/magnitudeprocessor.h>
+#include <seiscomp/core/plugin.h>
 #if SC_API_VERSION < SC_API_VERSION_CHECK(12,0,0)
-#include <seiscomp3/geo/geofeatureset.h>
+#include <seiscomp/geo/geofeatureset.h>
 #else
-#include <seiscomp3/geo/featureset.h>
+#include <seiscomp/geo/featureset.h>
 #endif
 
 #include <string>
