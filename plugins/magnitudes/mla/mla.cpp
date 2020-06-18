@@ -2,13 +2,13 @@
 
 #include "mla.h"
 
-#include <seiscomp3/logging/log.h>
+#include <seiscomp/logging/log.h>
 #if SC_API_VERSION < SC_API_VERSION_CHECK(12,0,0)
-#include <seiscomp3/geo/geofeature.h>
+#include <seiscomp/geo/geofeature.h>
 #else
-#include <seiscomp3/geo/feature.h>
+#include <seiscomp/geo/feature.h>
 #endif
-#include <seiscomp3/math/geo.h>
+#include <seiscomp/math/geo.h>
 
 #include <vector>
 #include <string>
